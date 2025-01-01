@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elegant New Year 2025 Celebration</title>
+    <style>
+        body {
+            font-family: 'Playfair Display', serif;
+            background: linear-gradient(to bottom, #1a237e, #283593);
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            text-align: center;
+        }
+        h1 {
+            font-size: 3rem;
+            color: #ffd700;
+            margin-bottom: 2rem;
+            animation: fadeIn 1s ease-out;
+        }
+        canvas {
+            border: 2px solid #ffd700;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .quotes {
+            background-color: rgba(41, 98, 255, 0.3);
+            border: 2px solid #ffd700;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+        .quote {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Happy New Year 2025!</h1>
+        <canvas id="stickmanCanvas" width="400" height="300"></canvas>
+        <div class="quotes">
+            <h2>Happy New Year 2025 to Everyone</h2>
+            <p class="quote">Even the smallest act of kindness makes the world a brighter place.</p>
+            <p class="quote">Your presence lights up someone's life, even if you don't realize it.</p>
+            <p class="quote">The world is better with you in it. Never forget that.</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.getElementById('stickmanCanvas');
+            const ctx = canvas.getContext('2d');
+            let frame = 0;
+            const totalFrames = 120;
+
+            function drawStickman(progress) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // Draw mountain
+                ctx.beginPath();
+                ctx.moveTo(0, canvas.height);
+                ctx.lineTo(canvas.width / 2, 50);
+                ctx.lineTo(canvas.width, canvas.height);
+                ctx.fillStyle = '#4a5568';
+                ctx.fill();
+
+                // Draw stickman
+                ctx.strokeStyle = 'white';
+                ctx.fillStyle = 'white';
+                ctx.lineWidth = 4;
+                ctx.lineCap = 'round';
+
+                // Body
+                ctx.beginPath();
+                ctx.moveTo(canvas.width / 2, 150);
+                ctx.lineTo(canvas.width / 2, 220);
+                ctx.stroke();
+
+                // Arms
+                const armAngle = Math.sin(progress * Math.PI * 2) * 0.2;
+                ctx.beginPath();
+                ctx.moveTo(canvas.width / 2, 170);
+                ctx.lineTo(canvas.width / 2 - 30, 200 + armAngle * 20);
+                ctx.moveTo(canvas.width / 2, 170);
+                ctx.lineTo(canvas.width / 2 + 30, 200 - armAngle * 20);
+                ctx.stroke();
+
+                // Legs
+                ctx.beginPath();
+                ctx.moveTo(canvas.width / 2, 220);
+                ctx.lineTo(canvas.width / 2 - 20, 280);
+                ctx.moveTo(canvas.width / 2, 220);
+                ctx.lineTo(canvas.width / 2 + 20, 280);
+                ctx.stroke();
+
+                // Head
+                ctx.beginPath();
+                ctx.arc(canvas.width / 2, 140, 15, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Face
+                ctx.fillStyle = 'black';
+                // Eyes
+                ctx.beginPath();
+                ctx.arc(canvas.width / 2 - 5, 137, 2, 0, Math.PI * 2);
+                ctx.arc(canvas.width / 2 + 5, 137, 2, 0, Math.PI * 2);
+                ctx.fill();
+                // Smile
+                ctx.beginPath();
+                ctx.arc(canvas.width / 2, 143, 8, 0.1 * Math.PI, 0.9 * Math.PI);
+                ctx.stroke();
+
+                // Flag
+                ctx.strokeStyle = 'white';
+                ctx.fillStyle = 'gold';
+                ctx.beginPath();
+                ctx.moveTo(canvas.width / 2 + 30, 150);
+                ctx.lineTo(canvas.width / 2 + 30, 80);
+                ctx.stroke();
+
+                ctx.fillRect(canvas.width / 2 + 30, 80, 40, 30);
+
+                ctx.fillStyle = 'black';
+                ctx.font = 'bold 16px Arial';
+                ctx.fillText('2025', canvas.width / 2 + 33, 100);
+            }
+
+            function animate() {
+                frame = (frame + 1) % totalFrames;
+                const progress = frame / totalFrames;
+                drawStickman(progress);
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+
+            // Quote animation
+            const quotes = document.querySelectorAll('.quote');
+            let currentQuote = 0;
+
+            function showNextQuote() {
+                quotes[currentQuote].style.opacity = 0;
+                currentQuote = (currentQuote + 1) % quotes.length;
+                quotes[currentQuote].style.opacity = 1;
+            }
+
+            // Show the first quote immediately
+            quotes[0].style.opacity = 1;
+
+            // Change quote every 5 seconds
+            setInterval(showNextQuote, 5000);
+        });
+    </script>
+</body>
+</html>
